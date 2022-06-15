@@ -1,27 +1,35 @@
 <script>
-  import axios from "axios";
+import axios from "axios";
 
-  export default {
-    data: function () {
-      return {
-        newUserParams: {},
-        errors: [],
-      };
-    },
-    methods: {
-      submit: function () {
-        axios
-          .post("/users", this.newUserParams)
-          .then((response) => {
-            console.log(response.data);
-            this.$router.push("/login");
-          })
-          .catch((error) => {
-            this.errors = error.response.data.errors;
-          });
+export default {
+  data: function () {
+    return {
+      newUserParams: {
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
       },
+      errors: [],
+      status: "",
+    };
+  },
+  methods: {
+    submit: function () {
+      axios
+        .post("/users", this.newUserParams)
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push("/login");
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+          this.status = error.response.status;
+          console.log("the status is", this.status);
+        });
     },
-  };
+  },
+};
 </script>
 
 <template>
@@ -46,6 +54,9 @@
       <div>
         <label>Password confirmation:</label>
         <input type="password" v-model="newUserParams.password_confirmation" />
+        <small v-if="newUserParams.password_confirmation !== newUserParams.password" class="text-danger">
+          Passwords must match
+        </small>
       </div>
       <input type="submit" value="Submit" />
     </form>
