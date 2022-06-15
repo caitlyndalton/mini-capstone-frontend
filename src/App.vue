@@ -7,6 +7,8 @@
     <router-link to="/products">All products</router-link>
     |
     <router-link to="/signup">Sign up</router-link>
+    |
+    <router-link to="/login">Login</router-link>
   </nav>
   <router-view />
 </template>
