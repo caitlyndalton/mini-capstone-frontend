@@ -28,8 +28,13 @@ export default {
       <h2>{{ product.name }}</h2>
       <p>Price: {{ product.price }}</p>
       <p>Description: {{ product.description }}</p>
+      <img v-bind:src="product.primary_image" v-bind:alt="product.title" />
     </div>
   </div>
 </template>
 
-<style></style>
+<style>
+.home img {
+  width: 200px;
+}
+</style>
